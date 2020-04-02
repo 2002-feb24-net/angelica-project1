@@ -13,7 +13,9 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- script: |
-    echo "Showing current directory contents"
-    ls
-  displayName: 'Run a multi-line script'
+
+
+- script: dotnet build
+  workingDirectory: Flowers
+  displayName: dotnet build
+
