@@ -27,6 +27,6 @@ steps:
     pollingTimeoutSec: '300'
 
 - script: dotnet build
-  workingDirectory: Flowers
+  workingDirectory: /Flowers.WebUI
   displayName: dotnet build
 
