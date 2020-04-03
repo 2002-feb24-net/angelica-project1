@@ -43,6 +43,8 @@ namespace Flowers.Core.Model
             get => _PostalCode;
         }
 
+    public List<Inventory> Inventory { get; set; } = new List<Inventory>();
+    public List<Order> Order { get; set; } = new List<Order>();
 
     }
 }

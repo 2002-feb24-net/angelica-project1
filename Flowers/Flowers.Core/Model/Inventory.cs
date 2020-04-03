@@ -29,6 +29,7 @@ namespace Flowers.Core.Model
 
         }
 
-
+    public List<Product> Product { get; set; } = new List<Product>();
+    public List<Store> Store { get; set; } = new List<Store>();
     }
 }

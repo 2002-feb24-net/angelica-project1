@@ -22,5 +22,7 @@ namespace Flowers.Core.Model
 
         }
 
+        public List<Inventory> Inventory { get; set; } = new List<Inventory>();
+
     }
 }

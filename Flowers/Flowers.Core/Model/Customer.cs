@@ -49,7 +49,7 @@ namespace Flowers.Core.Model
                 _Username = value;
             }
         }
-
+      public List<Order> Order { get; set; } = new List<Order>();
 
     }
 }

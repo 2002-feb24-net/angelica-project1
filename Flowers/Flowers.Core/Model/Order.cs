@@ -9,7 +9,7 @@ namespace Flowers.Core.Model
         private int _SaleID {get; set;}
         private int? _CustomerID;
         private DateTime _SaleDate;
-        private double? _OrderTotal; //check if decimal is right
+        private decimal? _OrderTotal; //check if decimal is right
 
         public int? CustomerID
         {
