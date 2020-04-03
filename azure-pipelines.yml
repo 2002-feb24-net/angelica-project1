@@ -11,6 +11,7 @@ pool:
 
 steps:
 
+
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'sonarcloud-anvelez26-p1'
@@ -27,6 +28,11 @@ steps:
 - script: dotnet build
   workingDirectory: Flowers/Flowers.WebUI
   displayName: dotnet build
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
