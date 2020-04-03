@@ -22,20 +22,26 @@ steps:
     extraProperties: |
       sonar.exclusions=**/lib/**
 
-
-- task: SonarCloudAnalyze@1
-
 - script: dotnet build
   workingDirectory: Flowers/Flowers.WebUI
   displayName: dotnet build
-
+- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: true
-- task: SonarCloudPublish@1
+
+- task: AzureRmWebAppDeployment@4
   inputs:
-    pollingTimeoutSec: '300'
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(78b43f0d-e2db-4e7b-a091-747958a9a1c3)'
+    appType: 'webApp'
+    WebAppName: 'flowers-velez'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
 
 
 
