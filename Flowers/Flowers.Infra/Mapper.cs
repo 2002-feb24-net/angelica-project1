@@ -33,7 +33,7 @@ namespace Flowers.Infra
                 LastName = Customer.LastName,
                 Username = Customer.Username,
 
-                // Order = Customer.Order.Select(MapOrder).ToList()
+                Order = Customer.Order.Select(MapOrder).ToList()
             };
         }
 
@@ -74,9 +74,35 @@ namespace Flowers.Infra
             };
         }
 
+        public static Entities.Order MapOrder(Core.Model.Order Order)
+        {
+            return new Entities.Order
+            {
+                SaleId = Order.SaleId,
+                CustomerId = Order.CustomerId,
+                SaleDate = Order.SaleDate,
+                StoreId = Order.StoreId,
+                OrderTotal = Order.OrderTotal,
+
+            };
+        }
+
         public static Core.Model.Product MapProduct(Entities.Product Product)
         {
             return new Core.Model.Product
+            {
+                ProductId = Product.ProductId,
+                ProductName = Product.ProductName,
+                ProductPrice = Product.ProductPrice,
+
+                Inventory= Product.Inventory.Select(MapInventory).ToList(),
+
+            };
+        }
+
+        public static Entities.Product MapProduct(Core.Model.Product Product)
+        {
+            return new Entities.Product
             {
                 ProductId = Product.ProductId,
                 ProductName = Product.ProductName,
@@ -100,7 +126,23 @@ namespace Flowers.Infra
                 PostalCode = Store.PostalCode,
 
                 Order = Store.Order.Select(MapOrder).ToList(),
-                // Inventory = Store.Inventory.Select(MapOrder).ToList()
+                Inventory = Store.Inventory.Select(MapInventory).ToList()
+            };
+        }
+
+        public static Entities.Store MapStore(Core.Model.Store Store)
+        {
+            return new Entities.Store
+            {
+                StoreId = Store.StoreId,
+                StoreName = Store.StoreName,
+                Address = Store.Address,
+                State = Store.State,
+                City = Store.City,
+                PostalCode = Store.PostalCode,
+
+                Order = Store.Order.Select(MapOrder).ToList(),
+                Inventory = Store.Inventory.Select(MapInventory).ToList()
             };
         }
 
