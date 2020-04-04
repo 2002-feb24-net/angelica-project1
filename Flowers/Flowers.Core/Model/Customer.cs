@@ -6,10 +6,10 @@ namespace Flowers.Core.Model
 {
     public class Customer
     {
-        private int _CustomerID {get; set;}
         private string _Username;
         private string _FirstName;
         private string _LastName;
+        public int CustomerId { get; set; }
 
         public string FirstName
         {

@@ -6,21 +6,10 @@ namespace Flowers.Core.Model
 {
     public class Product
     {
-        private int _ProductID {get; set;}
-        private string _ProductName;
-        private decimal _ProductPrice; //check if decimal
 
-         public string ProductName
-        {
-            get => _ProductName;
-
-        }
-
-         public decimal ProductPrice
-        {
-            get => _ProductPrice;
-
-        }
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public decimal ProductPrice { get; set; }
 
         public List<Inventory> Inventory { get; set; } = new List<Inventory>();
 

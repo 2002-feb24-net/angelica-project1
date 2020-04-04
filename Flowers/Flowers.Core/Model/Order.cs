@@ -6,15 +6,36 @@ namespace Flowers.Core.Model
 {
     public class Order
     {
-        private int _SaleID {get; set;}
-        private int? _CustomerID;
-        private DateTime _SaleDate;
-        private decimal? _OrderTotal; //check if decimal is right
+        private int _CustomerId;
+        private decimal _OrderTotal;
+        public int SaleId { get; set; }
+        public DateTime SaleDate { get; set; }
+        public int StoreId { get; set; }
 
-        public int? CustomerID
+        public int CustomerId
         {
-            get => _CustomerID;
+            get => _CustomerId;
+             set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Value may not be a negative number.", nameof(value));
+                }
+                _CustomerId = value;
+            }
 
+        }
+
+        public decimal OrderTotal
+        { get => _OrderTotal;
+             set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Value may not be a negative number.", nameof(value));
+                }
+                _OrderTotal = value;
+            }
         }
 
         //  public double? OrderTotal
@@ -31,9 +52,6 @@ namespace Flowers.Core.Model
         //     // }
 
         // }
-
-
-
 
     }
 }

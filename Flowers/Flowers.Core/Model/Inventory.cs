@@ -6,30 +6,27 @@ namespace Flowers.Core.Model
 {
     public class Inventory
     {
-        private int _InventoryID{get; set;}
-        private int? _StoreID;
-        private int? _ProductID;
-        private int? _InventoryCount;
+        private int _StoreId;
+        private int _ProductId;
+        private int _InventoryCount;
+        public int InventoryId { get; set; }
 
-         public int? StoreID
-        {
-            get => _StoreID;
+        public int StoreId { get; set; }
+        public int ProductId { get; set; }
 
-        }
-
-        public int? ProductID
-        {
-            get => _ProductID;
-
-        }
-
-        public int? InventoryCount
+        public int InventoryCount
         {
             get => _InventoryCount;
+               set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("Value may not be a negative number.", nameof(value));
+                }
+                _InventoryCount = value;
+            }
 
         }
 
-    public List<Product> Product { get; set; } = new List<Product>();
-    public List<Store> Store { get; set; } = new List<Store>();
     }
 }
