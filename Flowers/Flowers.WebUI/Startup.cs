@@ -29,7 +29,7 @@ namespace Flowers.WebUI
         {
            // using Microsoft.EntityFrameworkCore;
             services.AddDbContext<FlowersContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("FlowersDB")));
+                options.UseSqlServer(Configuration.GetConnectionString("FlowersContext")));
 
             services.AddScoped<IFlowersRepository, FlowersRepository>();
             services.AddControllersWithViews();
