@@ -10,29 +10,41 @@ namespace Flowers.Infra.Repositories
 {
     public class FlowersRepository : IFlowersRepository
     {
+        private readonly FlowersContext _Context;
+        public FlowersRepository(FlowersContext Context)
+        {
+            _Context = Context ?? throw new ArgumentException(nameof(Context));
+        }
         public void AddCustomer(Core.Model.Customer customer)
         {
-            throw new NotImplementedException();
+            Customer entity = Mapper.MapCustomer(customer);
+            _Context.Add(entity);
         }
 
-        public Core.Model.Customer GetCustomerById(string Username)
+        public Core.Model.Customer GetCustomerById(string userName)
         {
-            throw new NotImplementedException();
+            var customer = _Context.Customer
+                .FirstOrDefault(c => c.Username == userName);
+            if(customer != null)
+            {
+                return Mapper.MapCustomer(customer);
+            }
+            return null;
         }
 
-        public IEnumerable<Core.Model.Customer> GetCustomers(string search = null)
-        {
-            throw new NotImplementedException();
-        }
+        // public IEnumerable<Core.Model.Customer> GetCustomers(string search = null)
+        // {
+        //     throw new NotImplementedException();
+        // }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _Context.SaveChanges();
         }
 
-        public void UpdateCustomer(Core.Model.Customer customer)
-        {
-            throw new NotImplementedException();
-        }
+        // public void UpdateCustomer(Core.Model.Customer customer)
+        // {
+        //     throw new NotImplementedException();
+        // }
     }
 }

@@ -9,7 +9,7 @@ namespace Flowers.Infra
     /// a mapper is a way to link the db entities in Flowers.Infra
     /// to the models in Flowers.Core
     /// </summary>
-        public class Mapper
+        public static class Mapper
     {
         public static Core.Model.Customer MapCustomer(Entities.Customer Customer)
         {
