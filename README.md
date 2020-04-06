@@ -1,13 +1,9 @@
 # angelica-project1
 Store Web Application for Flower Shop using MVC
+The functioning Solution in this repo is named FlowerShop. 
 
-this project uses the same store type as p0, a flower shop. it uses the same azure sql database as was used in p0. 
-it allows a user to now view the flower shop from a website rather than console app. the user can:
+This project uses the same store type as p0, a flower shop. It uses the same Azure SQL database as was used in p0. 
+It allows a user to now view the flower shop from a website rather than console app. 
 
-1. create a new user log in
-2. log in as an existing user
-3. place an order for flowers, including a cart which allows a user to order multiple products at once
-4. view store locations
-5. view store inventory
-6. view past order history
-
+on the website Customer tab:
+CRUD Operations - create a customer, see all customers, edit a customer, delete a customer
