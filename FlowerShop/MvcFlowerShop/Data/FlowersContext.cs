@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using MvcFlowerShop.Models;
 
-namespace MvcFlowerShop.Models
+namespace MvcFlowerShop.Data
 {
     public partial class FlowersContext : DbContext
     {
