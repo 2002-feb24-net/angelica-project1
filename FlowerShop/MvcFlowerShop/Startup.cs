@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MvcFlowerShop.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace MvcFlowerShop
 {
@@ -24,6 +26,9 @@ namespace MvcFlowerShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+           services.AddDbContext<FlowersContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("FlowersContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
