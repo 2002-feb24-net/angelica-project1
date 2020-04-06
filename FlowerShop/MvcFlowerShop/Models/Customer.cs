@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MvcFlowerShop.Models
 {
@@ -11,8 +13,17 @@ namespace MvcFlowerShop.Models
         }
 
         public int CustomerId { get; set; }
+
+        [Required]
+        [DisplayName("Username")]
         public string Username { get; set; }
+
+        [Required]
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
+
+        [Required]
+        [DisplayName("Last Name")]
         public string LastName { get; set; }
 
         public virtual ICollection<Order> Order { get; set; }
