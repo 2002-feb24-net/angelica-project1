@@ -26,6 +26,12 @@ namespace MvcFlowerShop.Controllers
             return View(await flowersContext.ToListAsync());
         }
 
+        //  public async Task<IActionResult> SearchByName(int searchId)
+        // {
+        //     var orders = _context.Order.Where(o => o.CustomerId == searchId).Include(o => o.Customer).Include(o => o.Store);
+        //     return View(await orders.ToListAsync());
+        // }
+
 
         public async Task<IActionResult> Details(int? id)
         {

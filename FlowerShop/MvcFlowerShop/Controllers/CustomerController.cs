@@ -25,6 +25,20 @@ namespace MvcFlowerShop.Controllers
             return View(await _context.Customer.ToListAsync());
         }
 
+        public async Task<IActionResult> SearchByName(string searchName)
+        {
+            if (searchName == null)
+            {
+                return NotFound();
+            }
+            var customers = await _context.Customer.FirstOrDefaultAsync(c => c.Username == searchName);
+            if (customers == null)
+            {
+                return NotFound();
+            }
+            return View(customers);
+        }
+
 
         public async Task<IActionResult> Details(int? id)
         {
