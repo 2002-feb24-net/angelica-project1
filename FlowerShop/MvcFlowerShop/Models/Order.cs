@@ -27,5 +27,6 @@ namespace MvcFlowerShop.Models
 
         public virtual Customer Customer { get; set; }
         public virtual Store Store { get; set; }
+
     }
 }
