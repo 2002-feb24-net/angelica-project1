@@ -1,4 +1,4 @@
-@model MvcFlowerShop.Models.Order
+@model MvcFlowerShop.ViewModels.OrderProductViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,26 +13,43 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
+                <label asp-for="CustomerChoice" class="control-label"></label>
+                <select asp-for="CustomerChoice" class ="form-control" asp-items="ViewBag.CustomerChoice"></select>
             </div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="SaleDate" class="control-label"></label>
                 <input asp-for="SaleDate" class="form-control" />
                 <span asp-validation-for="SaleDate" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="LocationChoice" class="control-label"></label>
+                <select asp-for="LocationChoice" class ="form-control" asp-items="ViewBag.LocationChoice"></select>
             </div>
             <div class="form-group">
-                <label asp-for="StoreId" class="control-label"></label>
-                <select asp-for="StoreId" class ="form-control" asp-items="ViewBag.StoreId"></select>
+                <label asp-for="ProductChoice" class="control-label"></label>
+                <select asp-for="ProductChoice" class ="form-control" asp-items="ViewBag.ProductChoice"></select>
             </div>
-            <div class="form-group">
+            @* <div class="form-group">
                 <label asp-for="OrderTotal" class="control-label"></label>
                 <input asp-for="OrderTotal" class="form-control" />
                 <span asp-validation-for="OrderTotal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            </div> *@
+            @* <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+            <p>Choose a customer</p>
+            <div class="form-control-static">@Html.DropDownListFor(model => model.SelectCustomer, Model.CustomerList, "Select Customer", new { @onChange = "SelectCustomer(this)" })</div>
+            <br />
+             <p>Choose a store location</p>
+            <div class="form-control-static">@Html.DropDownListFor(model => model.SelectLocation, Model.LocationList, "Select Location", new { @onChange = "SelectLocation(this)" })</div>
+            <br />
+            <p>Choose a flower type</p>
+            <div class="form-control-static">@Html.DropDownListFor(model => model.SelectProduct, Model.ProductList, "Select Product", new { @onChange = "SelectProduct(this)" })</div>
+            <br />
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" onclick="Create()" />
+            </div> *@
         </form>
     </div>
 </div>
