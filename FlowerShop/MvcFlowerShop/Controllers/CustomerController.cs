@@ -50,8 +50,7 @@ namespace MvcFlowerShop.Controllers
         }
 
         // POST: Customer/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CustomerId,Username,FirstName,LastName")] Customer customer)
@@ -82,8 +81,7 @@ namespace MvcFlowerShop.Controllers
         }
 
         // POST: Customer/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CustomerId,Username,FirstName,LastName")] Customer customer)

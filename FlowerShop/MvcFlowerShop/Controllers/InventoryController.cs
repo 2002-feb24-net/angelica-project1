@@ -55,8 +55,7 @@ namespace MvcFlowerShop.Controllers
         }
 
         // POST: Inventory/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InventoryId,StoreId,ProductId,InventoryCount")] Inventory inventory)
@@ -92,8 +91,7 @@ namespace MvcFlowerShop.Controllers
         }
 
         // POST: Inventory/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("InventoryId,StoreId,ProductId,InventoryCount")] Inventory inventory)
