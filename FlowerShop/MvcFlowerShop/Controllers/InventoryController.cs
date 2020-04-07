@@ -46,31 +46,6 @@ namespace MvcFlowerShop.Controllers
             return View(inventory);
         }
 
-        // GET: Inventory/Create
-        public IActionResult Create()
-        {
-            ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductName");
-            ViewData["StoreId"] = new SelectList(_context.Store, "StoreId", "Address");
-            return View();
-        }
-
-        // POST: Inventory/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InventoryId,StoreId,ProductId,InventoryCount")] Inventory inventory)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(inventory);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductName", inventory.ProductId);
-            ViewData["StoreId"] = new SelectList(_context.Store, "StoreId", "Address", inventory.StoreId);
-            return View(inventory);
-        }
 
         // GET: Inventory/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -91,7 +66,7 @@ namespace MvcFlowerShop.Controllers
         }
 
         // POST: Inventory/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
