@@ -19,13 +19,13 @@ namespace MvcFlowerShop.Controllers
             _context = context;
         }
 
-        // GET: Customer
+
         public async Task<IActionResult> Index()
         {
             return View(await _context.Customer.ToListAsync());
         }
 
-        // GET: Customer/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,13 +43,13 @@ namespace MvcFlowerShop.Controllers
             return View(customer);
         }
 
-        // GET: Customer/Create
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Customer/Create
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -64,7 +64,7 @@ namespace MvcFlowerShop.Controllers
             return View(customer);
         }
 
-        // GET: Customer/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,7 +80,7 @@ namespace MvcFlowerShop.Controllers
             return View(customer);
         }
 
-        // POST: Customer/Edit/5
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -114,7 +114,7 @@ namespace MvcFlowerShop.Controllers
             return View(customer);
         }
 
-        // GET: Customer/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,7 +132,7 @@ namespace MvcFlowerShop.Controllers
             return View(customer);
         }
 
-        // POST: Customer/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

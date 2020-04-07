@@ -19,14 +19,14 @@ namespace MvcFlowerShop.Controllers
             _context = context;
         }
 
-        // GET: Inventory
+
         public async Task<IActionResult> Index()
         {
             var flowersContext = _context.Inventory.Include(i => i.Product).Include(i => i.Store);
             return View(await flowersContext.ToListAsync());
         }
 
-        // GET: Inventory/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,7 +46,6 @@ namespace MvcFlowerShop.Controllers
             return View(inventory);
         }
 
-        // GET: Inventory/Create
         public IActionResult Create()
         {
             ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "ProductName");
@@ -54,7 +53,7 @@ namespace MvcFlowerShop.Controllers
             return View();
         }
 
-        // POST: Inventory/Create
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -72,7 +71,6 @@ namespace MvcFlowerShop.Controllers
         }
 
 
-        // GET: Inventory/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,7 +88,7 @@ namespace MvcFlowerShop.Controllers
             return View(inventory);
         }
 
-        // POST: Inventory/Edit/5
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -126,7 +124,7 @@ namespace MvcFlowerShop.Controllers
             return View(inventory);
         }
 
-        // GET: Inventory/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,7 +144,7 @@ namespace MvcFlowerShop.Controllers
             return View(inventory);
         }
 
-        // POST: Inventory/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
