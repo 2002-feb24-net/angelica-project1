@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+/// <summary>
+/// the purpose of this viewmodel is so that we can access data from two models, order and product
+/// </summary>
 
 namespace MvcFlowerShop.ViewModels
 {

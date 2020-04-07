@@ -24,6 +24,11 @@ namespace MvcFlowerShop.Controllers
         {
             return View(await _context.Customer.ToListAsync());
         }
+        /// <summary>
+        ///  This allows you to search by the username of the customer
+        /// </summary>
+        /// <param name="searchName"></param>
+        /// <returns></returns>
 
         public async Task<IActionResult> SearchByName(string searchName)
         {
@@ -38,7 +43,11 @@ namespace MvcFlowerShop.Controllers
             }
             return View(customers);
         }
-
+/// <summary>
+/// Here we display the details of a customer
+/// </summary>
+/// <param name="id"></param>
+/// <returns></returns>
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -56,7 +65,10 @@ namespace MvcFlowerShop.Controllers
 
             return View(customer);
         }
-
+/// <summary>
+/// this allows you to creat and add a customer
+/// </summary>
+/// <returns></returns>
 
         public IActionResult Create()
         {
@@ -78,7 +90,11 @@ namespace MvcFlowerShop.Controllers
             return View(customer);
         }
 
-
+/// <summary>
+/// this allows you to edit an existing customer
+/// </summary>
+/// <param name="id"></param>
+/// <returns></returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

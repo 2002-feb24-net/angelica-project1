@@ -32,7 +32,11 @@ namespace MvcFlowerShop.Controllers
         //     return View(await orders.ToListAsync());
         // }
 
-
+/// <summary>
+/// displays the details of an order
+/// </summary>
+/// <param name="id"></param>
+/// <returns></returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,6 +55,10 @@ namespace MvcFlowerShop.Controllers
 
             return View(order);
         }
+        /// <summary>
+        ///  create an order and add it
+        /// </summary>
+        /// <returns></returns>
 
         public IActionResult Create()
         {

@@ -39,7 +39,13 @@ namespace MvcFlowerShop.Controllers
             }
 
             return View(product);
+
         }
+
+        /// <summary>
+        /// create a product
+        /// </summary>
+        /// <returns></returns>
 
         public IActionResult Create()
         {
