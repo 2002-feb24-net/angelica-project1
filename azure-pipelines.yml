@@ -27,10 +27,9 @@ steps:
   displayName: dotnet build
 
   
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
+# - task: SonarCloudAnalyze@1
+# - task: SonarCloudPublish@1
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
