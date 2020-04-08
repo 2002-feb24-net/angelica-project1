@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace FlowerShop2.DataAccess.Model
+namespace FlowerShop2.Domain
 {
     public partial class FlowersContext : DbContext
     {
@@ -26,8 +26,7 @@ namespace FlowerShop2.DataAccess.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:2002-training-velez.database.windows.net,1433;Initial Catalog=Flowers;Persist Security Info=False;User ID=angelica;Password=Password123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer(SecretConfiguration.connectionString);
             }
         }
 
