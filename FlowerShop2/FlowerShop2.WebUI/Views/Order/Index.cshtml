@@ -1,0 +1,59 @@
+@model IEnumerable<FlowerShop2.Domain.Model.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Order</h1>
+<div id="function-continer">
+    <div id="function-buttons">
+        <div id="function-buttons-center">
+            <button id="search-cust-orders">Search Customer Orders</button>
+            <button id="search-loc-orders">Search Location Orders</button>
+            <button>
+                <a asp-action="Create" class="button">Create an Order</a>
+            </button>
+
+
+        </div>
+    </div>
+
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderTotal)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.Username)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SaleId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SaleId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SaleId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

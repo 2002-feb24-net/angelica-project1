@@ -12,7 +12,7 @@ namespace FlowerShop2.Domain
         public void Remove(int id);
         public void Update(Customer customer);
 
-        public Customer FindByID(string Username);
+        public Customer FindByID(int id);
 
     }
 }

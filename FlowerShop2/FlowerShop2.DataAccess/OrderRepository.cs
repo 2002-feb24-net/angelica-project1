@@ -16,12 +16,21 @@ namespace FlowerShop2.DataAccess
         }
         public OrderRepository()
         {
-            context = new FlowersContext();
+            this.context = new FlowersContext();
+        }
+        public void RemoveOrderItem(OrderLine item)
+        {
+            context.OrderLine.Remove(item);
+            context.SaveChanges();
+        }
+        public IEnumerable<Store> GetStores()
+        {
+            return context.Store;
         }
 
-        public Task<IEnumerable<Order>> GetOrders()
+        public async Task<IEnumerable<Order>> GetOrders()
         {
-            throw new System.NotImplementedException();
+            return await context.Order.Include(o => o.Customer).Include(o => o.Store).ToListAsync();
         }
 
         public void Remove(int id)

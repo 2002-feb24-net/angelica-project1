@@ -28,10 +28,10 @@ namespace FlowerShop2.DataAccess
             return customer.CustomerId;
         }
 
-        public Customer FindByID(string Username)
+        public Customer FindByID(int id)
         {
-            var cust = context.Customer.Where(cust => cust.Username == Username);
-            return context.Customer.Find(cust);
+
+            return context.Customer.Find(id);
         }
 
         public async Task<IEnumerable<Customer>> GetCustomers()
@@ -48,7 +48,7 @@ namespace FlowerShop2.DataAccess
 
         public void Update(Customer customer)
         {
-            var old = FindByID(customer.Username);
+            var old = FindByID(customer.CustomerId);
             context.Entry(old).State = EntityState.Detached;
             context.Set<Customer>().Attach(customer);
             context.Entry(customer).State = EntityState.Modified;
