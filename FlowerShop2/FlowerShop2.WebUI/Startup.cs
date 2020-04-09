@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using FlowerShop2.Domain;
+using FlowerShop2.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlowerShop2.WebUI
 {
@@ -23,6 +26,14 @@ namespace FlowerShop2.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+             services.AddDbContext<FlowersContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("FlowersContext")));
+
+
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IStoreRepository, StoreRepository>();
             services.AddControllersWithViews();
         }
 
