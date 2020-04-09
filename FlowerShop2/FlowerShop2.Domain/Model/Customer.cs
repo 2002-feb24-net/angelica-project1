@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FlowerShop2.DataAccess.Model
+namespace FlowerShop2.Domain.Model
 {
     public partial class Customer
     {
