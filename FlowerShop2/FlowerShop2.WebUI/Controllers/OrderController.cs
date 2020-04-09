@@ -30,7 +30,7 @@ namespace FlowerShop2.WebUI.Controllers
             var flowerContext = await _context.GetOrders();
             return View(flowerContext.ToList());
         }
-        private PlaceOrderViewModel InitPOVM(int storeID)
+        public PlaceOrderViewModel InitPOVM(int storeID)
         {
             TempData["StoreId"] = storeID;
             var inventoryItemModel = new PlaceOrderViewModel
@@ -40,7 +40,7 @@ namespace FlowerShop2.WebUI.Controllers
             ViewData["ProductId"] = new SelectList(_storeContext.GetInventory(storeID),"ProductId","ProductName");
             return inventoryItemModel;
         }
-        private bool AddOrderItem(OrderLine item)
+        public bool AddOrderItem(OrderLine item)
         {
             int storeID = Convert.ToInt32(TempData["StoreID"]);
             TempData["StoreID"] = storeID;
@@ -61,16 +61,20 @@ namespace FlowerShop2.WebUI.Controllers
 
         public IActionResult AddMore([Bind("SaleId", "Quantity","Id","ProductId")]OrderLine item)
         {
-            // if(!AddOrderItem(item))
-            // {
-            //     TempData["ItemAddError"] = true;
-            // }
+            if(!AddOrderItem(item))
+            {
+                TempData["ItemAddError"] = true;
+            }
             int storeID = Convert.ToInt32(TempData["StoreID"]);
             InitPOVM(storeID);
             return RedirectToAction("CreateOrderItem");
         }
         public IActionResult CreateOrderItem()
         {
+            if (TempData["ItemAddError"]!= null && (bool)TempData["ItemAddError"]== true)
+            {
+                ModelState.AddModelError("Quantity Error","Item not added");
+            }
             int storeID = Convert.ToInt32(TempData["StoreID"]);
             TempData["StoreID"] = storeID;
             return View(InitPOVM(storeID));
@@ -78,12 +82,12 @@ namespace FlowerShop2.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateOrderItem([Bind("SaleId", "Quantity","Id","ProductId")]OrderLine item)
+        public IActionResult CreateOrderItem([Bind("SaleId", "Quantity","OrderLineId","ProductId")]OrderLine item)
         {
-            // if (AddOrderItem(item))
-            // {
-            //     return RedirectToAction(nameof(Index));
-            // }
+            if (AddOrderItem(item))
+            {
+                return RedirectToAction(nameof(Index));
+            }
             ModelState.AddModelError("QuantityError", "Invalid quantity");
             int storeID = Convert.ToInt32(TempData["StoreID"]);
             return View(InitPOVM(storeID));
@@ -107,16 +111,17 @@ namespace FlowerShop2.WebUI.Controllers
 
 
         // GET: Order/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             ViewData["StoreID"] = new SelectList(_context.GetStores(), "Id", "Name");
+
             return View();
         }
 
         // POST: Order/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id","CustomerId","StoreId","Username")] OrderViewModel order)
+        public IActionResult Create([Bind("OrderLineId","CustomerId","StoreId","Username")] OrderViewModel order)
         {
 
             var new_order = new Order

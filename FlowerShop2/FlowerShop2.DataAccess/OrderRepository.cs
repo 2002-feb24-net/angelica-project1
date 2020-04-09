@@ -50,13 +50,13 @@ namespace FlowerShop2.DataAccess
 
         public Order FindByID(int id)
         {
-            var find = context.Order.Include(x => x.CustomerId).Include(x => x.StoreId)
-                                    .Include("OrderLine.P").Include("OrderLine.P.P")
+            var find = context.Order.Include(x => x.Customer).Include(x => x.Store)
+                                    .Include("OrderLine.Inventory")
                                     .FirstOrDefault(y => y.SaleId == id);
                 context.Entry(find).Reload();
                 return find;
         }
-
+// .Include("OrderLine.Inventory.Inventory")
         public int Create(Order order)
         {
             context.Order.Add(order);
