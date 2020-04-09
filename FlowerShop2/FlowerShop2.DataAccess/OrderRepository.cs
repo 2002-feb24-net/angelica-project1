@@ -24,29 +24,48 @@ namespace FlowerShop2.DataAccess
             throw new System.NotImplementedException();
         }
 
-        public int Remove(int id)
+        public void Remove(int id)
         {
-            throw new System.NotImplementedException();
+           try
+           {
+               var toRemove = context.Order.Include(x => x.OrderLine).FirstOrDefault(x => x.SaleId == id);
+               context.OrderLine.RemoveRange(toRemove.OrderLine);
+               context.Remove(toRemove);
+               context.SaveChanges();
+           }
+           catch(DbUpdateException)
+           {
+               return;
+           }
         }
 
         public Order FindByID(int id)
         {
-            throw new System.NotImplementedException();
+            var find = context.Order.Include(x => x.CustomerId).Include(x => x.StoreId)
+                                    .Include("OrderLine.P").Include("OrderLine.P.P")
+                                    .FirstOrDefault(y => y.SaleId == id);
+                context.Entry(find).Reload();
+                return find;
         }
 
         public int Create(Order order)
         {
-            throw new System.NotImplementedException();
+            context.Order.Add(order);
+            context.SaveChanges();
+            context.Entry(order).Reload();
+            return order.CustomerId;
         }
 
         public void Edit(Order order)
         {
-            throw new System.NotImplementedException();
+            context.Entry(order).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         public void AddOrderLine(OrderLine item)
         {
-            throw new System.NotImplementedException();
+            context.OrderLine.Add(item);
+            context.SaveChanges();
         }
     }
 }

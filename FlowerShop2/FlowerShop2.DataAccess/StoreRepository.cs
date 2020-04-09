@@ -19,19 +19,39 @@ namespace FlowerShop2.DataAccess
             context = new FlowersContext();
         }
 
-        public void UpdateInventory(int id, int quantitty)
+        public void UpdateInventory(int InventoryID, int quantity)
         {
-            throw new System.NotImplementedException();
+
+            var update = context.Inventory.Find(InventoryID);
+            update.InventoryCount -= quantity;
+            context.SaveChanges();
+
         }
 
-        public int GetQuantity(int id)
+        public int GetQuantity(int InventoryID)
         {
-            throw new System.NotImplementedException();
+            return context.Inventory.Find(InventoryID).InventoryCount;
         }
 
         public List<Inventory> GetInventory(int id)
         {
-            throw new System.NotImplementedException();
+            var listInventoryModel = context.Inventory
+                        .Include("P").Where(i => i.StoreId == id).ToList();
+            return listInventoryModel;
+
+        }
+
+        public IEnumerable<Store> GetLocations()
+        {
+            return context.Store.Include("P.P");
+        }
+        public void Add(Store S)
+        {
+            context.Store.Add(S);
+        }
+        public void Edit(Store S)
+        {
+            context.Entry(S).State = EntityState.Modified;
         }
     }
 }

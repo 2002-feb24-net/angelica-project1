@@ -8,7 +8,7 @@ namespace FlowerShop2.Domain
     {
         public Task<IEnumerable<Order>> GetOrders();
 
-        public int Remove(int id);
+        public void Remove(int id);
         public Order FindByID(int id);
 
         public int Create(Order order);

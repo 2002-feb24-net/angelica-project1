@@ -6,11 +6,11 @@ namespace FlowerShop2.Domain
 {
     public interface IStoreRepository
     {
-        void UpdateInventory(int id, int quantitty);
+        void UpdateInventory(int InventoryId, int quantity);
 
-        int GetQuantity(int id);
+        int GetQuantity(int InventoryId);
 
-        List<Inventory> GetInventory(int id);
+        List<Inventory> GetInventory(int InventoryId);
 
     }
 }
