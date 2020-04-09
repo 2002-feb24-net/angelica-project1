@@ -37,26 +37,26 @@ namespace FlowerShop2.WebUI.Controllers
             {
                 Inventory = _storeContext.GetInventory(storeID)
             };
-            ViewData["ProductId"] = new SelectList(_storeContext.GetInventory(storeID),"Id","ProductName");
+            ViewData["ProductId"] = new SelectList(_storeContext.GetInventory(storeID),"ProductId","ProductName");
             return inventoryItemModel;
         }
-        private IActionResult AddOrderItem(OrderLine item)
+        private bool AddOrderItem(OrderLine item)
         {
             int storeID = Convert.ToInt32(TempData["StoreID"]);
             TempData["StoreID"] = storeID;
             int orderID = Convert.ToInt32(TempData["OrderID"]);
             TempData["OrderID"] = orderID;
-            return View();
 
-            // if (ModelState.IsValid && item.Quantity(_storeContext.GetQuantity(item.ProductId)))
-            // {
-            //     _storeContext.UpdateInventory(item.ProductId, item.Quantity);
-            //     item.SaleId=orderID;
-            //     _context.AddOrderLine(item);
-            //     return true;
-            // }
-            // ModelState.AddModelError("QuantityError", "Invalid quantity");
-            // return false;
+
+            if (ModelState.IsValid && item.ValidateQuantity(_storeContext.GetQuantity(item.ProductId)))
+            {
+                _storeContext.UpdateInventory(item.ProductId, item.Quantity);
+                item.SaleId=orderID;
+                _context.AddOrderLine(item);
+                return true;
+            }
+            ModelState.AddModelError("QuantityError", "Invalid quantity");
+            return false;
         }
 
         public IActionResult AddMore([Bind("SaleId", "Quantity","Id","ProductId")]OrderLine item)
