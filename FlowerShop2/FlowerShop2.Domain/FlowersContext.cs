@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using FlowerShop2.DataAccess.Model;
 
 namespace FlowerShop2.Domain
 {
