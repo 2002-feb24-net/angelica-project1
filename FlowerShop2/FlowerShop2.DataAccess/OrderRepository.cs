@@ -71,7 +71,7 @@ namespace FlowerShop2.DataAccess
             context.Order.Add(order);
             context.SaveChanges();
             context.Entry(order).Reload();
-            return order.CustomerId;
+            return order.SaleId;
         }
 
         public void Edit(Order order)
