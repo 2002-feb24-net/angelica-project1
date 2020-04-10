@@ -10,6 +10,8 @@ namespace FlowerShop2.WebUI.Models
     {
         public List<Inventory> Inventory {get; set;}
         public OrderLine Item {get; set;}
+        public List<Customer> CustomerId {get; set;}
+        public List<Store> StoreId {get; set;}
 
     }
 }

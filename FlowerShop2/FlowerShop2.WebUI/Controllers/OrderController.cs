@@ -25,27 +25,32 @@ namespace FlowerShop2.WebUI.Controllers
 
         }
         // GET: Order
+        // public IActionResult Index()
+        // {
+        //     var flowerContext = _context.GetOrders();
+        //     return View(flowerContext.ToList());
+        // }
         public async Task<IActionResult> Index()
         {
             var flowerContext = await _context.GetOrders();
             return View(flowerContext.ToList());
         }
-        public PlaceOrderViewModel InitPOVM(int storeID)
+        // private PlaceOrderViewModel InitPOVM(int storeID)
+        // {
+        //     TempData["StoreId"] = storeID;
+        //     var inventoryItemModel = new PlaceOrderViewModel
+        //     {
+        //         Inventory = _storeContext.GetInventory(storeID)
+        //     };
+        //     ViewData["ProductId"] = new SelectList(_storeContext.GetInventory(storeID),"ProductId","ProductName");
+        //     return inventoryItemModel;
+        // }
+        private bool AddOrderItem(OrderLine item)
         {
+            int storeID = Convert.ToInt32(TempData["StoreId"]);
             TempData["StoreId"] = storeID;
-            var inventoryItemModel = new PlaceOrderViewModel
-            {
-                Inventory = _storeContext.GetInventory(storeID)
-            };
-            ViewData["ProductId"] = new SelectList(_storeContext.GetInventory(storeID),"ProductId","ProductName");
-            return inventoryItemModel;
-        }
-        public bool AddOrderItem(OrderLine item)
-        {
-            int storeID = Convert.ToInt32(TempData["StoreID"]);
-            TempData["StoreID"] = storeID;
-            int orderID = Convert.ToInt32(TempData["OrderID"]);
-            TempData["OrderID"] = orderID;
+            int orderID = Convert.ToInt32(TempData["OrderId"]);
+            TempData["OrderId"] = orderID;
 
 
             if (ModelState.IsValid && item.ValidateQuantity(_storeContext.GetQuantity(item.ProductId)))
@@ -59,39 +64,40 @@ namespace FlowerShop2.WebUI.Controllers
             return false;
         }
 
-        public IActionResult AddMore([Bind("SaleId", "Quantity","Id","ProductId")]OrderLine item)
-        {
-            if(!AddOrderItem(item))
-            {
-                TempData["ItemAddError"] = true;
-            }
-            int storeID = Convert.ToInt32(TempData["StoreID"]);
-            InitPOVM(storeID);
-            return RedirectToAction("CreateOrderItem");
-        }
-        public IActionResult CreateOrderItem()
-        {
-            if (TempData["ItemAddError"]!= null && (bool)TempData["ItemAddError"]== true)
-            {
-                ModelState.AddModelError("Quantity Error","Item not added");
-            }
-            int storeID = Convert.ToInt32(TempData["StoreID"]);
-            TempData["StoreID"] = storeID;
-            return View(InitPOVM(storeID));
-        }
+        // public IActionResult AddMore([Bind("SaleId", "Quantity","OrderLineId","ProductId")]OrderLine item)
+        // {
+        //     if(!AddOrderItem(item))
+        //     {
+        //         TempData["ItemAddError"] = true;
+        //     }
+        //     int storeID = Convert.ToInt32(TempData["StoreId"]);
+        //     InitPOVM(storeID);
+        //     return RedirectToAction("CreateOrderItem");
+        // }
+        // public IActionResult CreateOrderItem()
+        // {
+        //     if (TempData["ItemAddError"]!= null && (bool)TempData["ItemAddError"]== true)
+        //     {
+        //         ModelState.AddModelError("Quantity Error","Item not added");
+        //     }
+        //     int storeID = Convert.ToInt32(TempData["StoreID"]);
+        //     TempData["StoreID"] = storeID;
+        //     return View(InitPOVM(storeID));
+        // }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CreateOrderItem([Bind("SaleId", "Quantity","OrderLineId","ProductId")]OrderLine item)
-        {
-            if (AddOrderItem(item))
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            ModelState.AddModelError("QuantityError", "Invalid quantity");
-            int storeID = Convert.ToInt32(TempData["StoreID"]);
-            return View(InitPOVM(storeID));
-        }
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public IActionResult CreateOrderItem([Bind("SaleId", "Quantity","OrderLineId","ProductId")]OrderLine item)
+        // {
+        //     if (AddOrderItem(item))
+        //     {
+        //         return RedirectToAction(nameof(Index));
+        //     }
+        //     ModelState.AddModelError("QuantityError", "Invalid quantity");
+        //     int storeID = Convert.ToInt32(TempData["StoreId"]);
+        //     return View(InitPOVM(storeID));
+        // }
+
 
         // GET: Order/Details/5
         public IActionResult Details(int? id)
@@ -113,26 +119,36 @@ namespace FlowerShop2.WebUI.Controllers
         // GET: Order/Create
         public IActionResult Create()
         {
-            ViewData["StoreID"] = new SelectList(_context.GetStores(), "Id", "Name");
-
+            ViewData["StoreId"] = new SelectList(_context.GetStores(), "StoreId", "State");
+            ViewData["ProductId"] = new SelectList(_context.GetProducts(),"ProductId","ProductName");
+            ViewData["CustomerId"] = new SelectList(_context.GetCustomers(),"CustomerId","Username");
             return View();
         }
 
         // POST: Order/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("OrderLineId","CustomerId","StoreId","Username")] OrderViewModel order)
+        public IActionResult Create([Bind("OrderLineId","CustomerId","StoreId","CustomerId")] OrderViewModel order)
         {
+            if (ModelState.IsValid)
+            {
 
-            var new_order = new Order
+                Order new_order = new Order
             {
                 StoreId = order.StoreId,
                 CustomerId = order.CustomerId,
+                SaleDate = DateTime.Now,
                 OrderTotal = 0,
             };
           TempData["OrderID"] = _context.Create(new_order);
           TempData["StoreId"] = order.StoreId;
-          return RedirectToAction("CreateOrderItem");
+          return RedirectToAction("Create");
+        }
+        else
+        {
+            TempData["VerificationError"] = true;
+        }
+        return View(order);
         }
 
         // GET: Order/Edit/5

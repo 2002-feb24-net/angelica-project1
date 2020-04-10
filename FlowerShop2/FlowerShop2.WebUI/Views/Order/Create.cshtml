@@ -16,21 +16,20 @@
     </div>
 }
 <hr />
-@* <table class="table">
-    <tbody>
-        <div id="item-card-container" style="display:flex;justify-content:space-around;max-width:80vw;flex-wrap:wrap">
-            @foreach (var item in Model.Inventory)
-            {
-                Html.RenderPartial("_ItemCard", item);
-            }
-        </div>
-    </tbody>
-</table> *@
+
 
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.CustomerId" class="control-label">Customer Username</label>
+                <select asp-for="@Model.CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.StoreId" class="control-label">Store Location</label>
+                <select asp-for="@Model.StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="@Model.Item.ProductId" class="control-label">Product Name</label>
                 <select asp-for="@Model.Item.ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
