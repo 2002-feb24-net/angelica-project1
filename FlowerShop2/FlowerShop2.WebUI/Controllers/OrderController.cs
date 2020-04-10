@@ -9,6 +9,7 @@ using FlowerShop2.Domain.Model;
 using FlowerShop2.WebUI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Diagnostics;
 
 namespace FlowerShop2.WebUI.Controllers
 {
@@ -35,21 +36,21 @@ namespace FlowerShop2.WebUI.Controllers
             var flowerContext = await _context.GetOrders();
             return View(flowerContext.ToList());
         }
-        private PlaceOrderViewModel InitPOVM(int storeID)
+        private PlaceOrderViewModel InitPOVM(int StoreId)
         {
-            TempData["StoreId"] = storeID;
+            TempData["StoreId"] = StoreId;
             var inventoryItemModel = new PlaceOrderViewModel
             {
-                Inventory = _storeContext.GetInventory(storeID)
+                Inventory = _storeContext.GetInventory(StoreId)
             };
             ViewData["ProductId"] = new SelectList(_context.GetProducts(),"ProductId","ProductName","ProductPrice");
             return inventoryItemModel;
         }
         private bool AddOrderItem(OrderLine item)
         {
-            int storeID = Convert.ToInt32(TempData["StoreId"]);
-            TempData["StoreId"] = storeID;
-            int orderID = Convert.ToInt32(TempData["OrderId"]);
+            int StoreId = Convert.ToInt32(TempData["StoreId"]);
+            TempData["StoreId"] = StoreId;
+            int orderID = Convert.ToInt32(TempData["OrderID"]);
             TempData["OrderId"] = orderID;
 
 
@@ -57,6 +58,7 @@ namespace FlowerShop2.WebUI.Controllers
             {
                 _storeContext.UpdateInventory(item.ProductId, item.Quantity);
                 item.SaleId=orderID;
+                Debug.WriteLine(orderID);
                 _context.AddOrderLine(item);
                 return true;
             }
@@ -70,8 +72,8 @@ namespace FlowerShop2.WebUI.Controllers
             {
                 TempData["ItemAddError"] = true;
             }
-            int storeID = Convert.ToInt32(TempData["StoreId"]);
-            InitPOVM(storeID);
+            int StoreId = Convert.ToInt32(TempData["StoreId"]);
+            InitPOVM(StoreId);
             return RedirectToAction("CreateOrderItem");
         }
         public IActionResult CreateOrderItem()
@@ -80,9 +82,9 @@ namespace FlowerShop2.WebUI.Controllers
             {
                 ModelState.AddModelError("Quantity Error","Item not added");
             }
-            int storeID = Convert.ToInt32(TempData["StoreID"]);
-            TempData["StoreID"] = storeID;
-            return View(InitPOVM(storeID));
+            int StoreId = Convert.ToInt32(TempData["StoreId"]);
+            TempData["StoreId"] = StoreId;
+            return View(InitPOVM(StoreId));
         }
 
         [HttpPost]
@@ -94,8 +96,8 @@ namespace FlowerShop2.WebUI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ModelState.AddModelError("QuantityError", "Invalid quantity");
-            int storeID = Convert.ToInt32(TempData["StoreId"]);
-            return View(InitPOVM(storeID));
+            int StoreId = Convert.ToInt32(TempData["StoreId"]);
+            return View(InitPOVM(StoreId));
         }
 
 
