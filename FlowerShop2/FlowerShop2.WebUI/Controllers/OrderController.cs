@@ -120,7 +120,7 @@ namespace FlowerShop2.WebUI.Controllers
         public IActionResult Create()
         {
             ViewData["StoreId"] = new SelectList(_context.GetStores(), "StoreId", "State");
-            ViewData["ProductId"] = new SelectList(_context.GetProducts(),"ProductId","ProductName");
+            ViewData["ProductId"] = new SelectList(_context.GetProducts(),"ProductId","ProductName","ProductPrice");
             ViewData["CustomerId"] = new SelectList(_context.GetCustomers(),"CustomerId","Username");
             return View();
         }
@@ -138,7 +138,7 @@ namespace FlowerShop2.WebUI.Controllers
                 StoreId = order.StoreId,
                 CustomerId = order.CustomerId,
                 SaleDate = DateTime.Now,
-                OrderTotal = 0,
+                OrderTotal = 0
             };
           TempData["OrderID"] = _context.Create(new_order);
           TempData["StoreId"] = order.StoreId;
