@@ -36,7 +36,7 @@ namespace FlowerShop2.DataAccess
         public List<Inventory> GetInventory(int id)
         {
             var listInventoryModel = context.Inventory
-                        .Include("P").Where(i => i.StoreId == id).ToList();
+                        .Include("Product").Where(i => i.StoreId == id).ToList();
             return listInventoryModel;
 
         }

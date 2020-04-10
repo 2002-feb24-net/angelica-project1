@@ -1,7 +1,7 @@
 @model FlowerShop2.WebUI.Models.PlaceOrderViewModel
 
 @{
-    ViewData["Title"] = "CreateOrderItem";
+    ViewData["Title"] = "PlaceOrderItem";
 }
 
 <head>
@@ -20,16 +20,8 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="CreateOrderItem">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="@Model.CustomerId" class="control-label">Customer Username</label>
-                <select asp-for="@Model.CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.StoreId" class="control-label">Store Location</label>
-                <select asp-for="@Model.StoreId" class="form-control" asp-items="ViewBag.StoreId"></select>
-            </div>
             <div class="form-group">
                 <label asp-for="@Model.Item.ProductId" class="control-label">Product Name</label>
                 <select asp-for="@Model.Item.ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
@@ -44,7 +36,7 @@
                 <input type="submit" value="Submit" class="btn btn-primary" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Add more items" class="btn btn-primary" />
+                <input asp-action="AddMore" type="submit" value="Add more items" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -35,16 +35,16 @@ namespace FlowerShop2.WebUI.Controllers
             var flowerContext = await _context.GetOrders();
             return View(flowerContext.ToList());
         }
-        // private PlaceOrderViewModel InitPOVM(int storeID)
-        // {
-        //     TempData["StoreId"] = storeID;
-        //     var inventoryItemModel = new PlaceOrderViewModel
-        //     {
-        //         Inventory = _storeContext.GetInventory(storeID)
-        //     };
-        //     ViewData["ProductId"] = new SelectList(_storeContext.GetInventory(storeID),"ProductId","ProductName");
-        //     return inventoryItemModel;
-        // }
+        private PlaceOrderViewModel InitPOVM(int storeID)
+        {
+            TempData["StoreId"] = storeID;
+            var inventoryItemModel = new PlaceOrderViewModel
+            {
+                Inventory = _storeContext.GetInventory(storeID)
+            };
+            ViewData["ProductId"] = new SelectList(_context.GetProducts(),"ProductId","ProductName","ProductPrice");
+            return inventoryItemModel;
+        }
         private bool AddOrderItem(OrderLine item)
         {
             int storeID = Convert.ToInt32(TempData["StoreId"]);
@@ -64,39 +64,39 @@ namespace FlowerShop2.WebUI.Controllers
             return false;
         }
 
-        // public IActionResult AddMore([Bind("SaleId", "Quantity","OrderLineId","ProductId")]OrderLine item)
-        // {
-        //     if(!AddOrderItem(item))
-        //     {
-        //         TempData["ItemAddError"] = true;
-        //     }
-        //     int storeID = Convert.ToInt32(TempData["StoreId"]);
-        //     InitPOVM(storeID);
-        //     return RedirectToAction("CreateOrderItem");
-        // }
-        // public IActionResult CreateOrderItem()
-        // {
-        //     if (TempData["ItemAddError"]!= null && (bool)TempData["ItemAddError"]== true)
-        //     {
-        //         ModelState.AddModelError("Quantity Error","Item not added");
-        //     }
-        //     int storeID = Convert.ToInt32(TempData["StoreID"]);
-        //     TempData["StoreID"] = storeID;
-        //     return View(InitPOVM(storeID));
-        // }
+        public IActionResult AddMore([Bind("SaleId", "Quantity","OrderLineId","ProductId")]OrderLine item)
+        {
+            if(!AddOrderItem(item))
+            {
+                TempData["ItemAddError"] = true;
+            }
+            int storeID = Convert.ToInt32(TempData["StoreId"]);
+            InitPOVM(storeID);
+            return RedirectToAction("CreateOrderItem");
+        }
+        public IActionResult CreateOrderItem()
+        {
+            if (TempData["ItemAddError"]!= null && (bool)TempData["ItemAddError"]== true)
+            {
+                ModelState.AddModelError("Quantity Error","Item not added");
+            }
+            int storeID = Convert.ToInt32(TempData["StoreID"]);
+            TempData["StoreID"] = storeID;
+            return View(InitPOVM(storeID));
+        }
 
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public IActionResult CreateOrderItem([Bind("SaleId", "Quantity","OrderLineId","ProductId")]OrderLine item)
-        // {
-        //     if (AddOrderItem(item))
-        //     {
-        //         return RedirectToAction(nameof(Index));
-        //     }
-        //     ModelState.AddModelError("QuantityError", "Invalid quantity");
-        //     int storeID = Convert.ToInt32(TempData["StoreId"]);
-        //     return View(InitPOVM(storeID));
-        // }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateOrderItem([Bind("SaleId", "Quantity","OrderLineId","ProductId")]OrderLine item)
+        {
+            if (AddOrderItem(item))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            ModelState.AddModelError("QuantityError", "Invalid quantity");
+            int storeID = Convert.ToInt32(TempData["StoreId"]);
+            return View(InitPOVM(storeID));
+        }
 
 
         // GET: Order/Details/5
@@ -142,7 +142,7 @@ namespace FlowerShop2.WebUI.Controllers
             };
           TempData["OrderID"] = _context.Create(new_order);
           TempData["StoreId"] = order.StoreId;
-          return RedirectToAction("Create");
+          return RedirectToAction("CreateOrderItem");
         }
         else
         {

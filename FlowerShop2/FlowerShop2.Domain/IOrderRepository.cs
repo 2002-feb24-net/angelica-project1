@@ -7,6 +7,10 @@ namespace FlowerShop2.Domain
     public interface IOrderRepository
     {
         public Task<IEnumerable<Order>> GetOrders();
+
+
+        public IEnumerable<Product> GetProducts();
+        public IEnumerable<Customer> GetCustomers();
         public IEnumerable<Store> GetStores();
 
         public void Remove(int id);

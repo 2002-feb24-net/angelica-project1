@@ -23,11 +23,20 @@ namespace FlowerShop2.DataAccess
             context.OrderLine.Remove(item);
             context.SaveChanges();
         }
-        public IEnumerable<Store> GetStores()
+
+        public IEnumerable<Product> GetProducts()
+        {
+            return context.Product;
+        }
+        public IEnumerable<Customer> GetCustomers()
+        {
+            return context.Customer;
+        }
+
+         public IEnumerable<Store> GetStores()
         {
             return context.Store;
         }
-
         public async Task<IEnumerable<Order>> GetOrders()
         {
             return await context.Order.Include(o => o.Customer).Include(o => o.Store).ToListAsync();

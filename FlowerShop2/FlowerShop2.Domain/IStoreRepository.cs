@@ -12,5 +12,7 @@ namespace FlowerShop2.Domain
 
         List<Inventory> GetInventory(int InventoryId);
 
+
+
     }
 }
