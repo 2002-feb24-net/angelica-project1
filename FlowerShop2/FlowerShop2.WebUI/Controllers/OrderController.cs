@@ -58,7 +58,7 @@ namespace FlowerShop2.WebUI.Controllers
             {
                 _storeContext.UpdateInventory(item.ProductId, item.Quantity);
                 item.SaleId=orderID;
-                Debug.WriteLine(orderID);
+                item.InventoryId = item.ProductId;
                 _context.AddOrderLine(item);
                 return true;
             }
